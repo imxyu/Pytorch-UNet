@@ -23,6 +23,7 @@ class dsconv(nn.Module):
 
         return x
 
+
 class double_dsconv(nn.Module):
     def __init__(self, in_ch, out_ch):
         super(double_dsconv, self).__init__()
@@ -35,6 +36,7 @@ class double_dsconv(nn.Module):
         x = self.conv(x)
         return x
 
+
 class inconv_dsc(nn.Module):
     def __init__(self, in_ch, out_ch):
         super(inconv_dsc, self).__init__()
@@ -43,6 +45,7 @@ class inconv_dsc(nn.Module):
     def forward(self, x):
         x = self.conv(x)
         return x
+
 
 class down_dsc(nn.Module):
     def __init__(self, in_ch, out_ch):
@@ -55,6 +58,7 @@ class down_dsc(nn.Module):
     def forward(self, x):
         x = self.mpconv(x)
         return x
+
 
 class up_dsc(nn.Module):
     def __init__(self, in_ch, out_ch, bilinear=True):
@@ -86,6 +90,7 @@ class up_dsc(nn.Module):
         x = torch.cat([x2, x1], dim=1)
         x = self.conv(x)
         return x
+
 
 class outconv_dsc(nn.Module):
     def __init__(self, in_ch, out_ch):
@@ -178,3 +183,8 @@ class outconv(nn.Module):
     def forward(self, x):
         x = self.conv(x)
         return x
+
+
+# class pyrmaid(nn.Module):
+#     def __init__(self, ch_in, out_ch):
+#         super(pyrmaid, self).__init__()
