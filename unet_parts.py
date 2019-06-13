@@ -4,25 +4,35 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
-class dsconv(nn.Module):
-    def __init__(self, in_ch, out_ch):
-        super(dsconv, self).__init__()
-        self.depthconv = nn.Conv2d(in_channels=in_ch, out_channels=in_ch, kernel_size=3, stride=1, padding=1, groups=in_ch)
-        self.bn1 = nn.BatchNorm2d(in_ch)
-        self.pointconv = nn.Conv2d(in_channels=in_ch, out_channels=out_ch, kernel_size=1, stride=1, padding=0)
-        self.bn2 = nn.BatchNorm2d(out_ch)
+# class dsconv(nn.Module):
+#     def __init__(self, in_ch, out_ch):
+#         super(dsconv, self).__init__()
+#         self.depthconv = nn.Conv2d(in_channels=in_ch, out_channels=in_ch, kernel_size=3, stride=1, padding=1, groups=in_ch)
+#         self.bn1 = nn.BatchNorm2d(in_ch)
+#         self.pointconv = nn.Conv2d(in_channels=in_ch, out_channels=out_ch, kernel_size=1, stride=1, padding=0)
+#         self.bn2 = nn.BatchNorm2d(out_ch)
     
-    def forward(self, x):
-        x = self.depthconv(x)
-        x = self.bn1(x)
-        x = F.relu(x, inplace=True)
+#     def forward(self, x):
+#         x = self.depthconv(x)
+#         x = self.bn1(x)
+#         x = F.relu(x, inplace=True)
         
-        x = self.pointconv(x)
-        x = self.bn2(x)
-        x = F.relu(x, inplace=True)
+#         x = self.pointconv(x)
+#         x = self.bn2(x)
+#         x = F.relu(x, inplace=True)
 
-        return x
+#         return x
 
+def dsconv(in_ch, out_ch):
+    return nn.Sequential(
+        nn.Conv2d(in_channels=in_ch, out_channels=in_ch, kernel_size=3, stride=1, padding=1, groups=in_ch),
+        nn.BatchNorm2d(in_ch),
+        nn.ReLU(inplace=True),
+
+        nn.Conv2d(in_channels=in_ch, out_channels=out_ch, kernel_size=1, stride=1, padding=0),
+        nn.BatchNorm2d(out_ch),
+        nn.ReLU(inplace=True)
+    )
 
 class double_dsconv(nn.Module):
     def __init__(self, in_ch, out_ch):
