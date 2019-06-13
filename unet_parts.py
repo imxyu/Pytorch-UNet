@@ -25,11 +25,11 @@ import torch.nn.functional as F
 
 def dsconv(in_ch, out_ch):
     return nn.Sequential(
-        nn.Conv2d(in_channels=in_ch, out_channels=in_ch, kernel_size=3, stride=1, padding=1, groups=in_ch),
+        nn.Conv2d(in_channels=in_ch, out_channels=in_ch, kernel_size=3, stride=1, padding=1, groups=in_ch, bias=False),
         nn.BatchNorm2d(in_ch),
         nn.ReLU(inplace=True),
 
-        nn.Conv2d(in_channels=in_ch, out_channels=out_ch, kernel_size=1, stride=1, padding=0),
+        nn.Conv2d(in_channels=in_ch, out_channels=out_ch, kernel_size=1, stride=1, padding=0, bias=False),
         nn.BatchNorm2d(out_ch),
         nn.ReLU(inplace=True)
     )
